@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS users_groups(
+       org_id UUID NOT NULL REFERENCES orgs(id) ON DELETE CASCADE,
+       group_id UUID NOT NULL REFERENCES groups(id) ON DELETE CASCADE,
+       created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+       updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+       PRIMARY KEY(org_id, group_id)
+);
