@@ -13,7 +13,9 @@
             [chef-server.endpoint.status :refer [status-endpoint]]
             [chef-server.endpoint.orgs :refer [orgs-endpoint]]
             [chef-server.endpoint.users :refer [users-endpoint]]
-            [chef-server.endpoint.groups :refer [groups-endpoint]]))
+            [chef-server.endpoint.groups :refer [groups-endpoint]]
+            [chef-server.endpoint.cookbooks :refer [cookbooks-endpoint]]
+            [chef-server.endpoint.reports :refer [reports-endpoint]]))
 
 (def base-config
   {:app {:middleware [[wrap-not-found :not-found]
@@ -33,7 +35,9 @@
          :status (endpoint-component status-endpoint)
          :orgs (endpoint-component orgs-endpoint)
          :users (endpoint-component users-endpoint)
-         :groups (endpoint-component groups-endpoint))
+         :groups (endpoint-component groups-endpoint)
+         :cookbooks (endpoint-component cookbooks-endpoint)
+         :reports (endpoint-component reports-endpoint))
         (component/system-using
          {:http [:app]
           :app  [:status]
@@ -41,4 +45,6 @@
           :status [:db]
           :orgs [:db]
           :users [:db]
-          :groups [:db]}))))
+          :groups [:db]
+          :cookbooks [:db]
+          :reports [:db]}))))
