@@ -10,7 +10,10 @@
             [ring.component.jetty :refer [jetty-server]]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [ring.middleware.webjars :refer [wrap-webjars]]
-            [chef-server.endpoint.status :refer [status-endpoint]]))
+            [chef-server.endpoint.status :refer [status-endpoint]]
+            [chef-server.endpoint.orgs :refer [orgs-endpoint]]
+            [chef-server.endpoint.users :refer [users-endpoint]]
+            [chef-server.endpoint.groups :refer [groups-endpoint]]))
 
 (def base-config
   {:app {:middleware [[wrap-not-found :not-found]
@@ -27,9 +30,15 @@
          :http (jetty-server (:http config))
          :db   (hikaricp (:db config))
          :ragtime (ragtime (:ragtime config))
-         :status (endpoint-component status-endpoint))
+         :status (endpoint-component status-endpoint)
+         :orgs (endpoint-component orgs-endpoint)
+         :users (endpoint-component users-endpoint)
+         :groups (endpoint-component groups-endpoint))
         (component/system-using
          {:http [:app]
           :app  [:status]
           :ragtime [:db]
-          :status [:db]}))))
+          :status [:db]
+          :orgs [:db]
+          :users [:db]
+          :groups [:db]}))))

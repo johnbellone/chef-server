@@ -7,4 +7,5 @@
 
 (defn status-endpoint []
   (routes
-   (GET "/" [] status-page)))
+   (GET "/_status" [] status-page)
+   (GET "/license" [])))
